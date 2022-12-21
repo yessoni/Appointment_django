@@ -22,12 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('Employee.urls')),
     path('admin/',include('Admin.urls')),
-    path("accounts/", include("django.contrib.auth.urls")),  # new
+    # path("accounts/", include("django.contrib.auth.urls")),  # new
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
-
-
-# urlpatterns =+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
- 
