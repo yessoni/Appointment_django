@@ -1,0 +1,191 @@
+{% extends 'registration/index.html' %}
+<!-- <!DOCTYPE html>
+<html lang="en"> -->
+
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <title>Add_Product</title> -->
+
+    {% block title %} Add_Product {% endblock %}
+
+    {% block stylesheet %} 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    {% endblock %}
+<!-- </head> -->
+
+<!-- <body> -->
+    {% block content %}
+    <form method="POST" class="form-horizontal">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>ADD_PRODUCTS</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
+                <div class="col-md-4">
+                    <!-- <input id="product_name" name="product_name" placeholder="PRODUCT NAME"
+                        class="form-control input-md" required="" type="text"> -->
+                        {{form.product_name}}
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="product_name_fr">PRODUCT COMPANY NAME</label>
+                <div class="col-md-4">
+                    <!-- <input id="product_company_name" name="product_company_name" placeholder="PRODUCT_COMPANY_NAME"
+                        class="form-control input-md" required="" type="text"> -->
+                        {{form.product_company_name}}
+
+                </div>
+            </div>
+
+            <!-- File Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="filebutton">PRODUCT_IMAGE</label>
+                <div class="col-md-4">
+                    <!-- <input id="product_image" name="product_image" class="input-file" type="file"> -->
+                    {{form.product_image}}
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="available_quantity">PRODUCT PRICE</label>
+                <div class="col-md-4">
+                    <!-- <input id="product_price" name="product_price" placeholder="PRODUCT PRICE"
+                        class="form-control input-md" required="" type="number"> -->
+                    {{form.product_price}}
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="product_weight">ENTERD BY</label>
+                <div class="col-md-4">
+                    <input id="enterd_by" name="enterd_by" placeholder="ENTERD BY" class="form-control input-md"
+                        required="" type="text">
+                    {{form.enterd_by}}
+                </div>
+            </div> -->
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="singlebutton"></label>
+                <div class="col-md-4">
+                    <button id="save" name="save" class="btn btn-primary">SAVE</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+    {% endblock %}
+<!-- </body> -->
+
+<!-- </html> -->
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add_Product</title> -->
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+
+    <!-- jQuery library -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
+
+    <!-- Latest compiled JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <form method="POST" class="form-horizontal">
+        <fieldset> -->
+
+            <!-- Form Name -->
+            <!-- <legend>ADD_PRODUCTS</legend> -->
+
+            <!-- Text input-->
+            <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
+                <div class="col-md-4"> -->
+                    <!-- <input id="product_name" name="product_name" placeholder="PRODUCT NAME"
+                        class="form-control input-md" required="" type="text"> -->
+                        <!-- {{form.product_name}}
+                </div>
+            </div> -->
+
+            <!-- Text input-->
+            <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="product_name_fr">PRODUCT COMPANY NAME</label>
+                <div class="col-md-4"> -->
+                    <!-- <input id="product_company_name" name="product_company_name" placeholder="PRODUCT_COMPANY_NAME"
+                        class="form-control input-md" required="" type="text"> -->
+                        <!-- {{form.product_company_name}}
+
+                </div>
+            </div> -->
+
+            <!-- File Button -->
+            <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="filebutton">PRODUCT_IMAGE</label>
+                <div class="col-md-4"> -->
+                    <!-- <input id="product_image" name="product_image" class="input-file" type="file"> -->
+                    <!-- {{form.product_image}}
+                </div>
+            </div> -->
+
+            <!-- Text input-->
+            <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="available_quantity">PRODUCT PRICE</label>
+                <div class="col-md-4"> -->
+                    <!-- <input id="product_price" name="product_price" placeholder="PRODUCT PRICE"
+                        class="form-control input-md" required="" type="number"> -->
+                    <!-- {{form.product_price}}
+
+                </div>
+            </div> -->
+
+            <!-- Text input-->
+            <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="product_weight">ENTERD BY</label>
+                <div class="col-md-4">
+                    <input id="enterd_by" name="enterd_by" placeholder="ENTERD BY" class="form-control input-md"
+                        required="" type="text">
+                    {{form.enterd_by}}
+                </div>
+            </div> -->
+
+            <!-- Button -->
+            <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="singlebutton"></label>
+                <div class="col-md-4">
+                    <button id="save" name="save" class="btn btn-primary">SAVE</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</body>
+
+</html> -->

@@ -17,4 +17,12 @@ class UserLoginForm(AuthenticationForm):
 class AddProductForm(forms.ModelForm):
     class Meta:
         model = AddProduct
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('enterd_by',)
+        widgets = {
+            'product_name' : forms.TextInput(attrs={'class':'form-control input-md', 'placeholder':'PRODUCT NAME'}),
+            'product_company_name' : forms.TextInput(attrs={'class':'form-control input-md', 'placeholder':'PRODUCT_COMPANY_NAME'}),
+            'product_image' : forms.FileInput(attrs={'class':'input-file'}),
+            'product_price' : forms.NumberInput(attrs={'class':'form-control input-md', 'placeholder':'PRODUCT PRICE'}),
+            # 'enterd_by' : forms.TextInput(attrs={'class':'form-control input-md', 'placeholder':'ENTERD BY'}),
+        }

@@ -10,7 +10,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>{% block title %} Dashboard {% endblock %}</title>
+
+    {% block stylesheet %} {% endblock stylesheet %}
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -49,6 +51,7 @@
                     <span>Dashboard</span></a>
             </li>
 
+            {% if user.is_authenticated %}
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -67,7 +70,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="#">Add Product</a>
+                        <a class="collapse-item" href="{% url 'add_product' %}">Add Product</a>
                         <a class="collapse-item" href="#">All Products</a>
                     </div>
                 </div>
@@ -91,7 +94,7 @@
                     </div>
                 </div>
             </li>
-
+            {% endif %}
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -120,14 +123,14 @@
                     </div>
                 </div>
             </li>
-
+            {% if user.is_authenticated %}
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
-
+            {% endif %}
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -199,24 +202,28 @@
 
                 </nav>
                 <!-- End of Topbar -->
-
+                
+                <!-- ok -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    {% block content %}
+                        
+                    {% endblock %}
+                    <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Products</h1>
-                    </div>
+                    </div> -->
 
                     <!-- Content Row -->
 
-                    <div class="row">
+                    <!-- <div class="row"> -->
 
                         <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
+                        <!-- <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4"> -->
                                 <!-- Card Header - Dropdown -->
-                                <div
+                                <!-- <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
                                     <div class="dropdown no-arrow">
@@ -233,12 +240,12 @@
                                             <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- Card Body -->
-                                <div class="card-body">
+                                <!-- <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
                                         <canvas id="myPieChart"></canvas>
-                                    </div>
+                                    </div> -->
                                     <!-- <div class="mt-4 text-center small">
                                         <span class="mr-2">
                                             <i class="fas fa-circle text-primary"></i> Direct
@@ -250,10 +257,10 @@
                                             <i class="fas fa-circle text-info"></i> Referral
                                         </span>
                                     </div> -->
-                                </div>
+                                <!-- </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
                 <!-- /.container-fluid -->

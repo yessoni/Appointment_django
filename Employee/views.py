@@ -42,3 +42,22 @@ def Login(request):
    #          messages.error(request,"Invalid email or password.")
    #    form = UserLoginForm()
    #    return render(request=request, template_name="registration/login.html", context={"login_form":form})
+
+@login_required(login_url='/login')
+def add_product(request):
+   if request.method == 'POST':
+      form = AddProductForm(data=request.POST, files=request.FILES)
+      if form.is_valid():
+         new_product = form.save(commit=False)
+         new_product.enterd_by = request.user
+         new_product.save()
+         return redirect('home')
+   else:
+      form = AddProductForm()
+   return render(request, 'registration/add_product.html', {'form':form})
+
+@login_required(login_url='/login')
+def all_product(request):
+   if request.method == 'GET':
+      product = AddProduct.objects.all()
+   return render(request, 'registration/all_products.html', {'product':product})
