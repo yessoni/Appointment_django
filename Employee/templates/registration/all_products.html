@@ -1,95 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+{% extends 'registration/index.html' %}
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+{% block title %} Products {% endblock %}
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-    <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-</head>
-<body>
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">DataTables Of Product</p>
 
-        <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-            For more information about DataTables, please visit the <a target="_blank"
-                href="https://datatables.net">official DataTables documentation</a>.</p>
-
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Sr No</th>
-                                <th>Product Name</th>
-                                <th>Product Company Name</th>
-                                <th>Product Price</th>
-                                <th>Enterd_By</th>
-                            </tr>
-                        </thead>
-                        {% for data in product %}
-                        <tbody>
-                            <tr>
-                                <td>{{data.id}}</td>
-                                <td>{{data.product_name}}</td>
-                                <td>{{data.product_company_name}}</td>
-                                <td>{{data.product_price}}</td>
-                                <td>{{data.enterd_by}}</td>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Product Data</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Product Name</th>
+                            <th>Product Company Name</th>
+                            <th>Product Price</th>
+                            <th>Enterd_By</th>
+                        </tr>
+                    </thead>
+                    {% for data in product %}
+                    <tbody>
+                        <tr>
+                            <td>{{data.id}}</td>
+                            <td>{{data.product_name}}</td>
+                            <td>{{data.product_company_name}}</td>
+                            <td>{{data.product_price}}</td>
+                            <td>{{data.enterd_by}}</td>
                             </td>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                            {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-
     </div>
-    <!-- /.container-fluid -->
 
 </div>
-<!-- End of Main Content -->
-
-<!-- Footer -->
-
-<!-- Bootstrap core JavaScript-->
-<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-
-<!-- Page level plugins -->
-<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-
-<!-- Page level custom scripts -->
-<script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-<script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
-</body>
-</html>
+<!-- /.container-fluid -->
+{% endblock %}

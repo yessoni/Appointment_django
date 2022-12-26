@@ -6,4 +6,5 @@ urlpatterns = [
     path('login/',Login,name='login'),
     path('add_product/',add_product,name='add_product'),
     path('product/',all_product,name='all_product'),
+    path('logout/',logoutUser,name='logout'),
 ]

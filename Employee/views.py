@@ -1,25 +1,24 @@
 from django.shortcuts import render, redirect
 from .forms import *
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
-# @login_required(login_url='login') #redirect when user is not logged in
+@login_required(login_url='/login')
 def Dashboard(request):
    return render(request, 'registration/index.html')
 
 
 def Login(request):
    if request.method == 'POST':
-      email = request.POST.get('email')
+      username = request.POST.get('username')
       password =request.POST.get('password')
 
-      user = authenticate(request, username=email, password=password)
+      user = authenticate(request, username=username, password=password)
       if user is not None:
          login(request,user)
-         messages.info(request, f"You are now logged in as {email}.")
+         messages.info(request, f"You are now logged in as {username}.")
          return redirect("home")
       else:
          messages.error(request,"Invalid email or password.")
@@ -61,3 +60,8 @@ def all_product(request):
    if request.method == 'GET':
       product = AddProduct.objects.all()
    return render(request, 'registration/all_products.html', {'product':product})
+
+
+def logoutUser(request):
+	logout(request)
+	return redirect('login') 
