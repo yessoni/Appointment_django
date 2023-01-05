@@ -1,0 +1,96 @@
+{% extends 'registration/index.html' %}
+
+{% block title %} Schedule_Doctor_Appointment {% endblock %}
+
+
+{% block stylesheet %}
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"        integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+
+<!-- <body> -->
+{% block content %}
+<form method="POST" enctype="multipart/form-data" action="/add_product/" class="form-horizontal">
+    {% csrf_token %}
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>DOCTOR'S</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_name">Select Doctor Name</label>
+            <div class="col-md-4">
+                <select class="form-control" id="doctor-name" name="doctor-name">
+                    {%for doctorname in doctor%}<option value="{{doctorname.doctor_name}}">{{doctorname.doctor_name}}</option>{%endfor%}
+                </select>
+                <!-- <input id="product_name" name="product_name" placeholder="PRODUCT NAME"
+                        class="form-control input-md" required="" type="text"> -->
+                <!-- {{form.doctor_name}} -->
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_name_fr">Date of Schedule</label>
+            <div class="col-md-4">
+                <input id="datepicker" name="datepicker" placeholder="Please Select Date"
+                        class="form-control input-md" required="" type="text">
+                        
+                <script>
+                    $('#datepicker').datepicker({
+                        format: 'mm-dd-yyyy'
+                    });
+                </script>
+                <!-- {{form.doctor_specialisation}} -->
+
+            </div>
+        </div>
+
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="filebutton">Time of Schedule</label>
+            <div class="col-md-4">
+                <input id="timepicker" name="timepicker" class="form-control input-md" type="text" placeholder="Please Select Time">
+                
+                <script>
+                    
+                    $('#timepicker').datepicker({
+                        format: 'LT'
+                    });
+                 </script>
+                {{form.doctor_number}}
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <!-- <div class="form-group">
+            <label class="col-md-4 control-label" for="available_quantity">Doctor Location</label>
+            <div class="col-md-4"> -->
+                <!-- <input id="product_price" name="product_price" placeholder="PRODUCT PRICE"
+                        class="form-control input-md" required="" type="number"> -->
+                <!-- {{form.doctor_location}}
+
+            </div>
+        </div> -->
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton"></label>
+            <div class="col-md-4">
+                <button id="save" name="save" class="btn btn-primary">SAVE</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+{% endblock %}

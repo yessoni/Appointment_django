@@ -1,0 +1,77 @@
+{% extends 'registration/index.html' %}
+
+{% block title %} Add_Doctor {% endblock %}
+
+
+{% block stylesheet %}
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{% endblock %}
+
+
+<!-- <body> -->
+{% block content %}
+<form method="POST" enctype="multipart/form-data" action="/add_doctor/" class="form-horizontal">
+    {% csrf_token %}
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>ADD_DOCTOR'S</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_name">Doctor Name</label>
+            <div class="col-md-4">
+                <!-- <input id="product_name" name="product_name" placeholder="PRODUCT NAME"
+                        class="form-control input-md" required="" type="text"> -->
+                {{form.doctor_name}}
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_name_fr">Doctor Specialisation</label>
+            <div class="col-md-4">
+                <!-- <input id="product_company_name" name="product_company_name" placeholder="PRODUCT_COMPANY_NAME"
+                        class="form-control input-md" required="" type="text"> -->
+                {{form.doctor_specialisation}}
+
+            </div>
+        </div>
+
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="filebutton">Doctor Contact Number</label>
+            <div class="col-md-4">
+                <!-- <input id="product_image" name="product_image" class="input-file" type="file"> -->
+                {{form.doctor_number}}
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="available_quantity">Doctor Location</label>
+            <div class="col-md-4">
+                <!-- <input id="product_price" name="product_price" placeholder="PRODUCT PRICE"
+                        class="form-control input-md" required="" type="number"> -->
+                {{form.doctor_location}}
+
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton"></label>
+            <div class="col-md-4">
+                <button id="save" name="save" class="btn btn-primary">SAVE</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+{% endblock %}

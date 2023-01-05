@@ -55,6 +55,7 @@ def add_product(request):
       form = AddProductForm()
    return render(request, 'registration/add_product.html', {'form':form})
 
+
 @login_required(login_url='/login')
 def all_product(request):
    if request.method == 'GET':
@@ -65,3 +66,24 @@ def all_product(request):
 def logoutUser(request):
 	logout(request)
 	return redirect('login') 
+
+
+@login_required(login_url='/login')
+def add_doctor(request):
+   if request.method == 'POST':
+      form = AddDoctorForm(data=request.POST)
+      if form.is_valid():
+         new_doctor = form.save(commit=False)
+         new_doctor.enterd_by = request.user
+         new_doctor.save()
+         return redirect('add_doctor')
+   else:
+      form = AddDoctorForm()
+   return render(request, 'registration/add_doctor.html', {'form':form})
+
+
+@login_required(login_url='/login')
+def all_doctor(request):
+   if request.method == 'GET':
+      doctor = AddDoctor.objects.all()
+   return render(request, 'registration/schedule_doctor_appointment.html', {'doctor':doctor})

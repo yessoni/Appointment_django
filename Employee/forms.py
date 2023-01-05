@@ -33,10 +33,16 @@ class AddDoctorForm(forms.ModelForm):
         model = AddDoctor
         # fields = '__all__'
         exclude = ('enterd_by',)
+        specialist = (
+            ('chest','Chest'),
+            ('heart','Heart'),
+            ('general','General'),
+            ('orthopadeic','Orthopadeic'),
+            )
         widgets = {
             'doctor_name' : forms.TextInput(attrs={'class':'form-control input-md', 'placeholder':'DOCTOR NAME'}),
-            'doctor_specialisation' : forms.TextInput(attrs={'class':'form-control input-md', 'placeholder':'PRODUCT_COMPANY_NAME'}),
-            'doctor_number' : forms.FileInput(attrs={'class':'input-file'}),
-            'doctor_location' : forms.NumberInput(attrs={'class':'form-control input-md', 'placeholder':'PRODUCT PRICE'}),
+            'doctor_specialisation' : forms.Select(choices=specialist ,attrs={'class':'form-control'}),
+            'doctor_number' : forms.NumberInput(attrs={'minlength': 10, 'maxlength': 10, 'required': True, 'type': 'number', 'class':'form-control', 'placeholder':'Doctor Number'}),
+            'doctor_location' : forms.TextInput(attrs={'class':'form-control input-md', 'placeholder':'Doctor Location'}),
             # 'enterd_by' : forms.TextInput(attrs={'class':'form-control input-md', 'placeholder':'ENTERD BY'}),
         }
