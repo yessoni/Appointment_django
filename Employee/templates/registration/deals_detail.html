@@ -1,6 +1,6 @@
 {% extends 'registration/index.html' %}
 
-{% block title %} Schedule_Doctor_Appointment {% endblock %}
+{% block title %} Deals Details {% endblock %}
 
 
 {% block stylesheet %}
@@ -11,33 +11,33 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
     integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
-    integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+    integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script> -->
 
 <!-- Include Moment.js CDN -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
-</script>
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
+</script> -->
 <!-- Include Bootstrap DateTimePicker CDN -->
-<link
+<!-- <link
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"
     rel="stylesheet">
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
-    </script>
+    </script> -->
 
 {% endblock %}
 
 
 <!-- <body> -->
 {% block content %}
-<form method="POST" enctype="multipart/form-data" action="/doctor/" class="form-horizontal">
+<form method="POST" enctype="multipart/form-data" action="/deals_details/" class="form-horizontal">
     {% csrf_token %}
     <fieldset>
 
         <!-- Form Name -->
-        <legend>DOCTOR'S</legend>
+        <legend>DEAL'S DETAILS</legend>
 
         <!-- Text input-->
         <div class="form-group">
@@ -53,6 +53,27 @@
 
         <!-- Text input-->
         <div class="form-group">
+            <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
+            <div class="col-md-4">
+                <input id="product_name" name="product_name" placeholder="PRODUCT NAME"
+                        class="form-control input-md" required="" type="text">
+                <!-- {{form.product_name}} -->
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="available_quantity">Quantity ordered</label>
+            <div class="col-md-4">
+                <input id="product_price" name="quantity_order" placeholder="QUANTITY ORDERED"
+                        class="form-control input-md" required="" type="number">
+                <!-- {{form.product_price}} -->
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <!-- <div class="form-group">
             <label class="col-md-4 control-label" for="product_name_fr">Date of Schedule</label>
             <div class="col-md-4">
                 <input id="datepicker" name="datepicker" placeholder="Please Select Date" class="form-control input-md"
@@ -65,10 +86,10 @@
                 </script>
 
             </div>
-        </div>
+        </div> -->
 
         <!-- File Button -->
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label class="col-md-4 control-label" for="filebutton">Time of Schedule</label>
             <div class="col-md-4">
                 <input id="datetime" name="datetime" class="form-control input-md" type="text"
@@ -81,7 +102,7 @@
                 </script>
 
             </div>
-        </div>
+        </div> -->
 
         <!-- Button -->
         <div class="form-group">

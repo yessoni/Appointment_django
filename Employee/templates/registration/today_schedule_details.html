@@ -1,0 +1,56 @@
+{% extends 'registration/index.html' %}
+
+{% block title %} Today_Scheduled_Doctor_Appointment {% endblock %}
+
+
+{% block stylesheet %}
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+    integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+    integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+<!-- <body> -->
+{% block content %}
+<form method="POST" enctype="multipart/form-data" action="/today-date-data/" class="form-horizontal">
+    {% csrf_token %}
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>For Today’s Schedule Details</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_name_fr">Date of Schedule</label>
+            <div class="col-md-4">
+                <input id="datepicker" name="datepicker" placeholder="Please Select Date" class="form-control input-md"
+                    required="" type="text">
+
+                <script>
+                    $('#datepicker').datepicker({
+                        format: 'yyyy-mm-dd'
+                    });
+                </script>
+
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton"></label>
+            <div class="col-md-4">
+                <button id="save" name="save" class="btn btn-primary">SAVE</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+{% endblock %}

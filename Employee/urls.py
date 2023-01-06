@@ -9,4 +9,6 @@ urlpatterns = [
     path('logout/',logoutUser,name='logout'),
     path('add_doctor/',add_doctor,name='add_doctor'),
     path('doctor/',all_doctor,name='doctor'),
+    path('today-date-data/',today_date_schedule,name='today-date-data'),
+    path('deals-details/',deals_details,name='deals_details'),
 ]

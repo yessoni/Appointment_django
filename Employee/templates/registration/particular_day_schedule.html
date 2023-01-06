@@ -1,0 +1,49 @@
+{% extends 'registration/index.html' %}
+
+{% block title %} Today_Schedule_Doctor_Data {% endblock %}
+
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">Schedule Of Doctor</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Today Scheduled Doctor Data</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Doctor Name</th>
+                            <th>Date Of Meeting</th>
+                            <th>Time</th>
+                            <!-- <th>Enterd_By</th> -->
+                        </tr>
+                    </thead>
+                    {% for data in today_date_data %}
+                    <tbody>
+                        <tr>
+                            <td>{{data.id}}</td>
+                            <td>{{data.doctor_name}}</td>
+                            <td>{{data.date_appointment}}</td>
+                            <td>{{data.time_appointment}}</td>
+                            <!-- <td>{{data.enterd_by}}</td> -->
+                            </td>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+{% endblock %}
