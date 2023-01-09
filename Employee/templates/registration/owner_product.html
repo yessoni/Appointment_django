@@ -1,0 +1,92 @@
+{% extends 'registration/index.html' %}
+
+{% block title %} Owner product {% endblock %}
+
+
+{% block stylesheet %}
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+{% endblock %}
+
+
+<!-- <body> -->
+{% block content %}
+<form method="POST" enctype="multipart/form-data" action="/employee_product/" class="form-horizontal">
+    {% csrf_token %}
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Owner'S Product</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_name">Select Employee Name</label>
+            <div class="col-md-4">
+                <select class="form-control" id="product_data" name="product_data">
+                    {%for employee in employee_name%}<option value="{{employee.first_name}}">{{employee.first_name}}
+                    </option>{%endfor%}
+                </select>
+
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton"></label>
+            <div class="col-md-4">
+                <button id="save" name="save" class="btn btn-primary">SAVE</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">DataTables Of Product</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Product Data</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Product Name</th>
+                            <th>Product Company Name</th>
+                            <th>Product Image</th>
+                            <th>Product Price</th>
+                            <th>Enterd_By</th>
+                        </tr>
+                    </thead>
+                    {% for data in owner_product %}
+                    <tbody>
+                        <tr>
+                            <td>{{data.id}}</td>
+                            <td>{{data.product_name}}</td>
+                            <td>{{data.product_company_name}}</td>
+                            <td>{{data.product_image}}</td>
+                            <td>{{data.product_price}}</td>
+                            <td>{{data.enterd_by}}</td>
+                            </td>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

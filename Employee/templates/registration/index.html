@@ -116,19 +116,20 @@
                         <a class="collapse-item" href="{% url 'login' %}">Login</a>
                         <!-- <a class="collapse-item" href="register.html">Register</a> -->
                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <!-- <div class="collapse-divider"></div>
+                        <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a> -->
+                        <a class="collapse-item" href="{% url 'employee_product' %}">Owner Product</a>
+                        <a class="collapse-item" href="{% url 'deals_owner' %}">Deals Details</a>
+                        <a class="collapse-item" href="{% url 'doctor_vist' %}">Doctor Vist</a>
                     </div>
                 </div>
             </li>
             {% if user.is_authenticated %}
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'list_of_employee' %}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Employee Tables</span></a>
             </li>
             {% endif %}
             <!-- Divider -->

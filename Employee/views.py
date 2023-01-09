@@ -3,6 +3,9 @@ from .forms import *
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+import calendar
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -51,7 +54,7 @@ def add_product(request):
         form = AddProductForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             new_product = form.save(commit=False)
-            new_product.enterd_by = request.user
+            new_product.enterd_by = request.user.first_name
             new_product.save()
             return redirect('home')
     else:
@@ -77,7 +80,7 @@ def add_doctor(request):
         form = AddDoctorForm(data=request.POST)
         if form.is_valid():
             new_doctor = form.save(commit=False)
-            new_doctor.enterd_by = request.user
+            new_doctor.enterd_by = request.user.first_name
             new_doctor.save()
             return redirect('add_doctor')
     else:
@@ -116,7 +119,6 @@ def today_date_schedule(request):
 @login_required(login_url='/login')
 def deals_details(request):
     if request.method == 'GET':
-        # doctor_name = DealsDetails.objects
         doctor = AddDoctor.objects.all()
         return render(request, 'registration/deals_detail.html', {'doctor': doctor})
 
@@ -124,8 +126,60 @@ def deals_details(request):
         doctor_name = request.POST['doctor-name']
         product_name = request.POST['product_name']
         quantity_order = request.POST['quantity_order']
-        print('************',doctor_name,product_name,quantity_order)
+        new_deal_data = DealsDetails.objects.create(
+            doctor_name=doctor_name, product_name=product_name, quantity_ordered=quantity_order, enterd_by=request.user.first_name)
+        new_deal_data.save()
         return redirect('deals_details')
-      #   new_deal_data = DealsDetails.objects.create(
-      #       doctor_name=doctor_name, product_name=product_name, quantity_ordered=quantity_order, enterd_by=request.user.first_name)
-      #   new_deal_data.save()
+
+
+@login_required(login_url='/login')
+def list_of_employee(request):
+    created_by_admin = User.objects.all().exclude(is_superuser=True)
+    return render(request, 'registration/list_of_employee.html', {'employee': created_by_admin})
+
+
+@login_required(login_url='/login')
+def product_by_employee(request):
+    employee_name = User.objects.all().exclude(is_superuser=True)
+    employee = request.POST.get('product_data', False)
+    owner_product = AddProduct.objects.filter(enterd_by=employee)
+    return render(request, 'registration/owner_product.html', {'employee_name': employee_name, 'owner_product': owner_product})
+
+
+def deals_with_employee(request):
+    if request.method == 'GET':
+        employee_deals = User.objects.all().exclude(is_superuser=True)
+        monthly = {name: num for num, name in enumerate(
+            calendar.month_abbr) if num}
+        return render(request, 'registration/deals_owner.html', {'employee_name': employee_deals, "month": monthly.keys()})
+
+    if request.method == 'POST':
+        select_month = request.POST.get('months', False)
+        select_employee = request.POST.get('employee_data', False)
+        employee_deals = User.objects.all().exclude(is_superuser=True)
+        monthly = {name: num for num, name in enumerate(
+            calendar.month_abbr) if num}
+        employee = DealsDetails.objects.filter(
+            enterd_by=select_employee, month__month=monthly[select_month])
+        return render(request, 'registration/deals_owner.html', {'employee_name': employee_deals, "month": monthly.keys(), 'employee': employee})
+
+
+def doctor_vist_detail(request):
+    if request.method == 'GET':
+        employee_deals = User.objects.all().exclude(is_superuser=True)
+        monthly = {name: num for num, name in enumerate(
+            calendar.month_abbr) if num}
+        return render(request, 'registration/doctor_vist.html', {'employee_name': employee_deals, "month": monthly.keys()})
+
+    if request.method == 'POST':
+        select_month = request.POST.get('months', False)
+        select_employee = request.POST.get('employee_data', False)
+        employee_deals = User.objects.all().exclude(is_superuser=True)
+        monthly = {name: num for num, name in enumerate(
+            calendar.month_abbr) if num}
+        employee = DoctorAppointment.objects.filter(
+            enterd_by=select_employee, date_appointment__month=monthly[select_month]).distinct('enterd_by')
+        total_month_appointment = DoctorAppointment.objects.filter(
+            enterd_by=select_employee, date_appointment__month=monthly[select_month]).count()
+        print('****************************',total_month_appointment)
+        return render(request, 'registration/doctor_vist.html', {'employee_name': employee_deals, "month": monthly.keys(), 'employee': employee, 'appointment_count':total_month_appointment})

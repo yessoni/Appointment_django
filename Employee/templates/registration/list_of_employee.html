@@ -1,0 +1,49 @@
+{% extends 'registration/index.html' %}
+
+{% block title %} List_Of_Employee {% endblock %}
+
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">List Of Employee</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Employee Data</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Employee First Name</th>
+                            <th>Employee Last Name</th>
+                            <th>Employee Email</th>
+                            <th>Employee Date Of Joining</th>
+                            <th>Employee Status</th>
+                        </tr>
+                    </thead>
+                    {% for data in employee %}
+                    <tbody>
+                        <tr>
+                            <td>{{data.first_name}}</td>
+                            <td>{{data.last_name}}</td>
+                            <td>{{data.email}}</td>
+                            <td>{{data.date_joined}}</td>
+                            <td>{{data.is_active}}</td>
+                            </td>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+{% endblock %}

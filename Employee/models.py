@@ -5,26 +5,28 @@ from django.conf import settings
 # Create your models here.
 
 specialist = (
-    ('chest','Chest'),
-    ('heart','Heart'),
-    ('general','General'),
-    ('orthopadeic','Orthopadeic'),
-    )
+    ('chest', 'Chest'),
+    ('heart', 'Heart'),
+    ('general', 'General'),
+    ('orthopadeic', 'Orthopadeic'),
+)
+
 
 class AddProduct(models.Model):
     product_name = models.CharField(max_length=255)
     product_company_name = models.CharField(max_length=255)
     product_image = models.ImageField(upload_to='images')
     product_price = models.IntegerField()
-    enterd_by = models.ForeignKey(User,on_delete=models.CASCADE,)
+    enterd_by = models.CharField(max_length=255)
 
 
 class AddDoctor(models.Model):
     doctor_name = models.CharField(max_length=255)
-    doctor_specialisation = models.CharField(max_length=50, choices=specialist, default='general')
+    doctor_specialisation = models.CharField(
+        max_length=50, choices=specialist, default='general')
     doctor_number = models.IntegerField()
     doctor_location = models.CharField(max_length=50)
-    enterd_by = models.ForeignKey(User,on_delete=models.CASCADE,)
+    enterd_by = models.CharField(max_length=255)
 
 
 class DoctorAppointment(models.Model):
@@ -35,7 +37,17 @@ class DoctorAppointment(models.Model):
 
 
 class DealsDetails(models.Model):
-    doctor_name = models.ForeignKey(AddDoctor,on_delete=models.CASCADE)
+    doctor_name = models.CharField(max_length=255)
     product_name = models.CharField(max_length=255)
     quantity_ordered = models.IntegerField()
+    month = models.DateField(auto_now=True)
     enterd_by = models.CharField(max_length=255)
+
+
+# class Employee(models.Model):
+#     first_name = models.CharField(max_length=255)
+#     last_name = models.CharField(max_length=255)
+#     email = models.EmailField()
+#     password = models.CharField(max_length=255)
+#     date_of_joining = models.DateTimeField(auto_now=True)
+#     status = models.BooleanField(default=True)

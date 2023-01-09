@@ -11,4 +11,8 @@ urlpatterns = [
     path('doctor/',all_doctor,name='doctor'),
     path('today-date-data/',today_date_schedule,name='today-date-data'),
     path('deals-details/',deals_details,name='deals_details'),
+    path('list_of_employee/',list_of_employee,name='list_of_employee'),
+    path('employee_product/',product_by_employee,name='employee_product'),
+    path('deals_owner/',deals_with_employee,name='deals_owner'),
+    path('doctor_vist/',doctor_vist_detail,name='doctor_vist'),
 ]
