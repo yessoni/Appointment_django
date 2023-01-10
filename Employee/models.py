@@ -44,8 +44,10 @@ class DealsDetails(models.Model):
     enterd_by = models.CharField(max_length=255)
 
 
-# class Employee(models.Model):
-#     first_name = models.CharField(max_length=255)
+class Profile(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    forget_password_token = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
 #     last_name = models.CharField(max_length=255)
 #     email = models.EmailField()
 #     password = models.CharField(max_length=255)

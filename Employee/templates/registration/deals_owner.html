@@ -80,14 +80,14 @@
                             <th>Employee Name</th>
                         </tr>
                     </thead>
-                    {% for data in employee %}
+                    
                     <tbody>
                         <tr>
-                            <td>{{data.id}}</td>
-                            <td>{{data.quantity_ordered}}</td>
-                            <td>{{data.enterd_by}}</td>
-                            </td>
-                            {% endfor %}
+                            <td>{{employee.id}}</td>
+                            <td>{{total_deals}}</td>
+                            <td>{{employee.enterd_by}}</td>
+                        </tr>
+                            
                     </tbody>
                 </table>
             </div>

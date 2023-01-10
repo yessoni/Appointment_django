@@ -5,7 +5,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import calendar
-from django.db.models import Sum
+from django.db.models import Count, Q, Sum
+from .helpers import send_forgot_password_mail
+import uuid
 
 # Create your views here.
 
@@ -30,22 +32,68 @@ def Login(request):
     form = UserLoginForm()
     return render(request=request, template_name="registration/login.html", context={"login_form": form})
 
-    # if request.user.is_authenticated:
-    #      return redirect('home')
-    # else:
-    #    if request.method == 'POST':
-    #       email = request.POST.get('email')
-    #       password =request.POST.get('password')
 
-    #       user = authenticate(request, username=email, password=password)
-    #       if user is not None:
-    #          login(request,user)
-    #          messages.info(request, f"You are now logged in as {email}.")
-    #          return redirect("home")
-    #       else:
-    #          messages.error(request,"Invalid email or password.")
-    #    form = UserLoginForm()
-    #    return render(request=request, template_name="registration/login.html", context={"login_form":form})
+def logout_view(request):
+    if request.user:
+        logout(request)
+        return redirect('login')
+
+
+def forget_password(request):
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+
+            if not User.objects.filter(username=username).first():
+                messages.success(request, 'Not user found with this username.')
+                return redirect('/forget-password/')
+
+            user_obj = User.objects.get(username=username)
+            token = str(uuid.uuid4())
+            profile_obj = Profile.objects.get(user=user_obj)
+            profile_obj.forget_password_token = token
+            profile_obj.save()
+            send_forgot_password_mail(user_obj.email, token)
+            messages.success(request, 'An Email is sent.')
+            return redirect('/forget-password/')
+
+    except Exception as e:
+        print(e)
+
+    return render(request, 'forget_password.html')
+
+
+def change_password(request, token):
+    context = {}
+
+    try:
+        profile_obj = Profile.objects.filter(
+            forget_password_token=token).first()
+        # print(profile_obj)
+        context = {'user_id': profile_obj.user.id}
+
+        if request.method == 'POST':
+            new_password = request.POST.get('new_password')
+            confirm_password = request.POST.get('confirm_password')
+            user_id = request.POST.get('user_id')
+
+            if user_id is None:
+                messages.success(request, "No user id found")
+                return redirect(f"/change-password/{token}/")
+
+            if new_password != confirm_password:
+                messages.success(request, "Both password should be same")
+                return redirect(f"/change-password/{token}/")
+
+            user_obj = User.objects.get(id=user_id)
+            user_obj.set_password(new_password)
+            user_obj.save()
+            return redirect("/login/")
+
+    except Exception as e:
+        print(e)
+
+    return render(request, 'change_password.html', context)
 
 
 @login_required(login_url='/login')
@@ -146,6 +194,7 @@ def product_by_employee(request):
     return render(request, 'registration/owner_product.html', {'employee_name': employee_name, 'owner_product': owner_product})
 
 
+@login_required(login_url='/login')
 def deals_with_employee(request):
     if request.method == 'GET':
         employee_deals = User.objects.all().exclude(is_superuser=True)
@@ -160,10 +209,13 @@ def deals_with_employee(request):
         monthly = {name: num for num, name in enumerate(
             calendar.month_abbr) if num}
         employee = DealsDetails.objects.filter(
-            enterd_by=select_employee, month__month=monthly[select_month])
-        return render(request, 'registration/deals_owner.html', {'employee_name': employee_deals, "month": monthly.keys(), 'employee': employee})
+            enterd_by=select_employee, month__month=monthly[select_month]).first()
+        total_deals = DealsDetails.objects.filter(
+            enterd_by=select_employee, month__month=monthly[select_month]).count()
+        return render(request, 'registration/deals_owner.html', {'employee_name': employee_deals, "month": monthly.keys(), 'employee': employee, 'total_deals': total_deals})
 
 
+@login_required(login_url='/login')
 def doctor_vist_detail(request):
     if request.method == 'GET':
         employee_deals = User.objects.all().exclude(is_superuser=True)
@@ -178,8 +230,7 @@ def doctor_vist_detail(request):
         monthly = {name: num for num, name in enumerate(
             calendar.month_abbr) if num}
         employee = DoctorAppointment.objects.filter(
-            enterd_by=select_employee, date_appointment__month=monthly[select_month]).distinct('enterd_by')
+            enterd_by=select_employee, date_appointment__month=monthly[select_month]).annotate(Count("date_appointment")).first()
         total_month_appointment = DoctorAppointment.objects.filter(
             enterd_by=select_employee, date_appointment__month=monthly[select_month]).count()
-        print('****************************',total_month_appointment)
-        return render(request, 'registration/doctor_vist.html', {'employee_name': employee_deals, "month": monthly.keys(), 'employee': employee, 'appointment_count':total_month_appointment})
+        return render(request, 'registration/doctor_vist.html', {'employee_name': employee_deals, "month": monthly.keys(), 'employee': employee, 'appointment_count': total_month_appointment})
