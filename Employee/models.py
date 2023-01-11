@@ -55,3 +55,13 @@ class Profile(models.Model):
             profile, created = Profile.objects.get_or_create(user=instance)  
 
     post_save.connect(create_user_profile, sender=User) 
+
+
+
+from django.conf import settings
+class LoggedInUser(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='logged_in_user', on_delete=models.CASCADE)
+    session_key = models.CharField(max_length=32, null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username
