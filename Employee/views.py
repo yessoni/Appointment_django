@@ -25,7 +25,7 @@ def Login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.info(request, f"You are now logged in as {username}.")
+            messages.success(request, f"You are now logged in as {username}.")
             return redirect("home")
         else:
             messages.error(request, "Invalid email or password.")
@@ -43,16 +43,22 @@ def forget_password(request):
     try:
         if request.method == 'POST':
             username = request.POST.get('username')
-
+            # print("*********************",username)
             if not User.objects.filter(username=username).first():
                 messages.success(request, 'Not user found with this username.')
                 return redirect('/forget-password/')
 
             user_obj = User.objects.get(username=username)
+            # print('*********************',user_obj)
             token = str(uuid.uuid4())
-            profile_obj = Profile.objects.get(user=user_obj)
-            profile_obj.forget_password_token = token
-            profile_obj.save()
+            # print('////////////',token)
+            # profile_obj = Profile.objects.get(user__username=username)
+            # print('*******************',profile_obj)
+            # profile_obj.forget_password_token = token
+            # profile_obj.save()
+            # profile_obj = Profile.objects.create(user_id = request.user.id,forget_password_token=token)
+            # profile_obj.save()
+
             send_forgot_password_mail(user_obj.email, token)
             messages.success(request, 'An Email is sent.')
             return redirect('/forget-password/')
@@ -60,11 +66,13 @@ def forget_password(request):
     except Exception as e:
         print(e)
 
-    return render(request, 'forget_password.html')
+    return render(request, 'registration/forget_password.html')
 
 
 def change_password(request, token):
+    print('*************',request)
     context = {}
+    context = {'token':token}
 
     try:
         profile_obj = Profile.objects.filter(
@@ -93,7 +101,7 @@ def change_password(request, token):
     except Exception as e:
         print(e)
 
-    return render(request, 'change_password.html', context)
+    return render(request, 'registration/change_password.html', context)
 
 
 @login_required(login_url='/login')

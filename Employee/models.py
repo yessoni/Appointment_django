@@ -44,12 +44,14 @@ class DealsDetails(models.Model):
     enterd_by = models.CharField(max_length=255)
 
 
+from django.db.models.signals import post_save
 class Profile(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     forget_password_token = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
-#     last_name = models.CharField(max_length=255)
-#     email = models.EmailField()
-#     password = models.CharField(max_length=255)
-#     date_of_joining = models.DateTimeField(auto_now=True)
-#     status = models.BooleanField(default=True)
+
+    def create_user_profile(sender, instance, created, **kwargs):  
+        if created:  
+            profile, created = Profile.objects.get_or_create(user=instance)  
+
+    post_save.connect(create_user_profile, sender=User) 
