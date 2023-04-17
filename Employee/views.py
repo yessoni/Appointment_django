@@ -51,13 +51,11 @@ def forget_password(request):
             user_obj = User.objects.get(username=username)
             # print('*********************',user_obj)
             token = str(uuid.uuid4())
-            # print('////////////',token)
-            # profile_obj = Profile.objects.get(user__username=username)
-            # print('*******************',profile_obj)
-            # profile_obj.forget_password_token = token
-            # profile_obj.save()
-            # profile_obj = Profile.objects.create(user_id = request.user.id,forget_password_token=token)
-            # profile_obj.save()
+            print('////////////',token)
+            profile_obj = Profile.objects.get(user__username=username)
+            print('*******************',profile_obj)
+            profile_obj.forget_password_token = token
+            profile_obj.save()
 
             send_forgot_password_mail(user_obj.email, token)
             messages.success(request, 'An Email is sent.')
@@ -70,15 +68,16 @@ def forget_password(request):
 
 
 def change_password(request, token):
-    print('*************',request)
+    print('*************',token)
     context = {}
     context = {'token':token}
 
     try:
         profile_obj = Profile.objects.filter(
             forget_password_token=token).first()
-        # print(profile_obj)
-        context = {'user_id': profile_obj.user.id}
+        print(profile_obj)
+        # context = {'user_id': profile_obj.user.id}
+        context = {'user_id': profile_obj}
 
         if request.method == 'POST':
             new_password = request.POST.get('new_password')
@@ -242,3 +241,9 @@ def doctor_vist_detail(request):
         total_month_appointment = DoctorAppointment.objects.filter(
             enterd_by=select_employee, date_appointment__month=monthly[select_month]).count()
         return render(request, 'registration/doctor_vist.html', {'employee_name': employee_deals, "month": monthly.keys(), 'employee': employee, 'appointment_count': total_month_appointment})
+
+
+# for admin user count
+# def count_user(request):
+#     total = User.objects.filter(first_name="Senu").count()
+#     print('***************************',total)

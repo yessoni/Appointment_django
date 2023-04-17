@@ -18,11 +18,14 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+# from Employee.admin import admin_site
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('admin/', admin_site.urls),
     path('',include('Employee.urls')),
     path('admin/',include('Admin.urls')),
+    # path('admin/doc/', include('django.contrib.admindocs.urls')),  
     
     # Forget Password
     path('password-reset/',auth_views.PasswordResetView.as_view(template_name='commons/password-reset/password_reset.html',subject_template_name='commons/password-reset/password_reset_subject.txt',email_template_name='commons/password-reset/password_reset_email.html'),name='password_reset'),
@@ -36,3 +39,8 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+# admin.site.site_header  =  "Custom bookstore admin"  
+# admin.site.site_title  =  "Custom bookstore admin site"
+# admin.site.index_title  =  "Custom Bookstore Admin"
+# admin.site.site_url = 'http://coffeehouse.com/'

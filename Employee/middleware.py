@@ -1,5 +1,3 @@
-from django.contrib.sessions.models import Session
-
 
 # Session model stores the session data
 from django.contrib.sessions.models import Session
@@ -16,7 +14,7 @@ class OneSessionPerUser:
         # the view (and later middleware) are called.
         if request.user.is_authenticated:
             session_key = request.session.session_key
-
+  
             # if there is a stored_session_key  in our database and it is
             # different from the current session, delete the stored_session_key
             # session_key with from the Session table
